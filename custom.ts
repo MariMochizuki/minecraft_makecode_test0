@@ -14,7 +14,7 @@ namespace LocationEvents {
     //% block
     export function checkPlayerLocation(x: number, y: number, z: number, radius: number) {
         let playerPos = player.position()
-        const targetPos = pos(x, y, z)
+        const targetPos = world(x, y, z)
 
         // プレイヤーと目標地点の距離を計算
         const distance = Math.sqrt(
