@@ -5,18 +5,14 @@
 namespace LocationEvents {
     // イベントが発生したかどうかを管理する変数
     let triggeredEvents: { [key: string]: boolean } = {}
-    // プレイヤーの位置
-    let playerPos_x = player.position().getValue(Axis.X)
-    let playerPos_y = player.position().getValue(Axis.Y)
-    let playerPos_z = player.position().getValue(Axis.Z)
 
     //% block="プレイヤーと目標地点の距離をチェック"
     export function checkPlayerLocation(radius: number, x: number, y: number, z: number) {
-        const targetPos = pos(x, y, z)
+        const targetPos = pos(x, y, z).toWorld()
         const distance = Math.sqrt(
-            Math.pow(playerPos_x - targetPos.getValue(Axis.X), 2) +
-            Math.pow(playerPos_y - targetPos.getValue(Axis.Y), 2) +
-            Math.pow(playerPos_z - targetPos.getValue(Axis.Z), 2)
+            Math.pow(player.position().getValue(Axis.X) - targetPos.getValue(Axis.X), 2) +
+            Math.pow(player.position().getValue(Axis.Y) - targetPos.getValue(Axis.Y), 2) +
+            Math.pow(player.position().getValue(Axis.Z) - targetPos.getValue(Axis.Z), 2)
         )
 
         return distance <= radius
