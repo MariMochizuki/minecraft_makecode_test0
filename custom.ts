@@ -14,6 +14,7 @@ namespace LocationEvents {
             Math.pow(player.position().getValue(Axis.Y) - targetPos.getValue(Axis.Y), 2) +
             Math.pow(player.position().getValue(Axis.Z) - targetPos.getValue(Axis.Z), 2)
         )
+        player.say(targetPos)
 
         return distance <= radius
     }
