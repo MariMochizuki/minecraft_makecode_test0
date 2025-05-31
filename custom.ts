@@ -41,7 +41,7 @@ namespace LocationEvents {
 
         // 定期的に位置をチェック
         loops.forever(function () {
-            if (checkPlayerLocation(chestX, chestY, chestZ, 3)) {
+            if (checkPlayerLocation(3, chestX, chestY, chestZ)) {
                 if (!triggeredEvents["treasure"]) {
                     triggeredEvents["treasure"] = true
                     player.say("宝箱を発見！")
@@ -68,7 +68,7 @@ namespace LocationEvents {
 
         // 定期的に位置をチェック
         loops.forever(function () {
-            if (checkPlayerLocation(goalX, goalY, goalZ, 2)) {
+            if (checkPlayerLocation(2, goalX, goalY, goalZ)) {
                 if (!triggeredEvents["maze"]) {
                     triggeredEvents["maze"] = true
                     player.say("迷路クリア！")
@@ -91,7 +91,7 @@ namespace LocationEvents {
 
         // 定期的に位置をチェック
         loops.forever(function () {
-            if (checkPlayerLocation(itemX, itemY, itemZ, 2)) {
+            if (checkPlayerLocation(2, itemX, itemY, itemZ)) {
                 if (!triggeredEvents["hiddenItem"]) {
                     triggeredEvents["hiddenItem"] = true
                     player.say("エメラルドを発見！")
