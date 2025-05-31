@@ -10,19 +10,13 @@ namespace LocationEvents {
     let playerPos_y = player.position().getValue(Axis.Y)
     let playerPos_z = player.position().getValue(Axis.Z)
 
-    /**
-     * @param radius
-     * @param targetPos_x
-     * @param targetPos_y
-     * @param targetPos_z
-     */
-    //% block
-    export function checkPlayerLocation(radius: number, targetPos_x: number, targetPos_y: number, targetPos_z: number) {
-        // プレイヤーと目標地点の距離を計算
+    //% block="プレイヤーと目標地点の距離をチェック"
+    export function checkPlayerLocation(radius: number, x: number, y: number, z: number) {
+        const targetPos = pos(x, y, z)
         const distance = Math.sqrt(
-            Math.pow(playerPos_x - targetPos_x, 2) +
-            Math.pow(playerPos_y - targetPos_y, 2) +
-            Math.pow(playerPos_z - targetPos_z, 2)
+            Math.pow(playerPos_x - targetPos.getValue(Axis.X), 2) +
+            Math.pow(playerPos_y - targetPos.getValue(Axis.Y), 2) +
+            Math.pow(playerPos_z - targetPos.getValue(Axis.Z), 2)
         )
 
         return distance <= radius
@@ -31,12 +25,12 @@ namespace LocationEvents {
     //% block="宝箱イベントを開始する"
     export function startTreasureEvent() {
         // 宝箱の位置を設定
-        const chestX = playerPos_x + 10
-        const chestY = playerPos_y
-        const chestZ = playerPos_z + 10
+        const chestX = 10
+        const chestY = 0
+        const chestZ = 10
 
         // 宝箱を設置
-        blocks.place(CHEST, world(chestX, chestY, chestZ))
+        blocks.place(CHEST, pos(chestX, chestY, chestZ))
 
         // 宝箱の周りにヒントを表示
         player.say("宝箱を探せ！")
@@ -49,7 +43,7 @@ namespace LocationEvents {
                     triggeredEvents["treasure"] = true
                     player.say("宝箱を発見！")
                     // 報酬を生成
-                    blocks.place(DIAMOND_BLOCK, world(chestX, chestY + 1, chestZ))
+                    blocks.place(DIAMOND_BLOCK, pos(chestX, chestY + 1, chestZ))
                 }
             }
         })
