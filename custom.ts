@@ -14,16 +14,15 @@ namespace LocationEvents {
     //% block
     export function checkPlayerLocation(x: number, y: number, z: number, radius: number) {
         let playerPos = player.position()
-        const targetPos = world(x, y, z)
 
         // プレイヤーと目標地点の距離を計算
         const distance = Math.sqrt(
-            Math.pow(playerPos.getValue(Axis.X) - targetPos.getValue(Axis.X), 2) +
-            Math.pow(playerPos.getValue(Axis.Y) - targetPos.getValue(Axis.Y), 2) +
-            Math.pow(playerPos.getValue(Axis.Z) - targetPos.getValue(Axis.Z), 2)
+            Math.pow(playerPos.getValue(Axis.X) - x, 2) +
+            Math.pow(playerPos.getValue(Axis.Y) - y, 2) +
+            Math.pow(playerPos.getValue(Axis.Z) - z, 2)
         )
 
-        return distance <= radius
+        return distance - radius
     }
 
     //% block="宝箱イベントを開始する"
