@@ -8,11 +8,21 @@ namespace LocationEvents {
 
     //% block="プレイヤーと目標地点の距離をチェック"
     export function checkPlayerLocation(target: Block) {
-        if (blocks.testForBlock(target, pos(-1, 0, -1)) || blocks.testForBlock(target, pos(0, 0, -1)) || blocks.testForBlock(target, pos(1, 0, -1))){
-            return true
-        } else {
-            return false
+         // チェックする相対座標の配列
+        const positions = [
+            pos(-1, 0, -1), pos(-1, 0, 0), pos(-1, 0, 1),
+            pos(0, 0, -1),  pos(0, 0, 0),  pos(0, 0, 1),
+            pos(1, 0, -1), pos(1, 0, 0), pos(1, 0, 1)
+        ]
+    
+        // 配列の各位置でブロックをチェック
+        for (let pos of positions) {
+            if (blocks.testForBlock(target, pos)) {
+                return true
+            }
         }
+    
+        return false
     }
 
     //% block="宝箱イベントを開始する"
@@ -36,8 +46,7 @@ namespace LocationEvents {
                 if (!triggeredEvents["treasure"]) {
                     triggeredEvents["treasure"] = true
                     player.say("宝箱を発見！")
-                    // 報酬を生成
-                    blocks.place(DIAMOND_BLOCK, pos(chestX, chestY + 1, chestZ))
+                    mobs.spawnParticle(EXPLOSION_HUGE, pos(0, 0, 0))
                 }
             }
         })
@@ -64,6 +73,7 @@ namespace LocationEvents {
                 if (!triggeredEvents["maze"]) {
                     triggeredEvents["maze"] = true
                     player.say("迷路クリア！")
+                    mobs.spawnParticle(EXPLOSION_HUGE, pos(0, 0, 0))
                 }
             }
         })
@@ -88,8 +98,7 @@ namespace LocationEvents {
                 if (!triggeredEvents["hiddenItem"]) {
                     triggeredEvents["hiddenItem"] = true
                     player.say("エメラルドを発見！")
-                    // 報酬を生成
-                    blocks.place(GOLD_BLOCK, pos(itemX, itemY + 1, itemZ))
+                    mobs.spawnParticle(EXPLOSION_HUGE, pos(0, 0, 0))
                 }
             }
         })
