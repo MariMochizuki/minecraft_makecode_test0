@@ -8,8 +8,11 @@ namespace LocationEvents {
 
     //% block="プレイヤーと目標地点の距離をチェック"
     export function checkPlayerLocation(target: Block) {
-        const targetPos = blocks.testForBlock(target, randpos(pos(-2, -2, -2), pos(2, 2, 2)))
-        return targetPos
+        if (blocks.testForBlock(target, pos(-1, 0, -1)) || blocks.testForBlock(target, pos(0, 0, -1)) || blocks.testForBlock(target, pos(1, 0, -1))){
+            return true
+        } else {
+            return false
+        }
     }
 
     //% block="宝箱イベントを開始する"
