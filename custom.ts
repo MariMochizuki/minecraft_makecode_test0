@@ -20,10 +20,10 @@ namespace LocationEvents {
         const distance = Math.sqrt(
             Math.pow(playerPos.getValue(Axis.X) - targetPos.getValue(Axis.X), 2) +
             Math.pow(playerPos.getValue(Axis.Y) - targetPos.getValue(Axis.Y), 2) +
-            Math.pow(playerPos.getValue(Axis.Z) - targetPos.getValue(Axis.Y), 2)
+            Math.pow(playerPos.getValue(Axis.Z) - targetPos.getValue(Axis.Z), 2)
         )
 
-        return radius - distance
+        return distance <= radius
     }
 
     //% block="宝箱イベントを開始する"
