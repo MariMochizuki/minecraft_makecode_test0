@@ -12,7 +12,7 @@ namespace LocationEvents {
      * @param radius
      */
     //% block
-    export function checkPlayerLocation(x: number, y: number, z: number, radius: number) {
+    export function checkPlayerLocation(radius: number, x: number, y: number, z: number) {
         let playerPos = player.position()
 
         // プレイヤーと目標地点の距離を計算
@@ -22,7 +22,7 @@ namespace LocationEvents {
             Math.pow(playerPos.getValue(Axis.Z) - z, 2)
         )
 
-        return [playerPos.getValue(Axis.Y),y]
+        return distance <= radius
     }
 
     //% block="宝箱イベントを開始する"
