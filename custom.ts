@@ -7,16 +7,9 @@ namespace LocationEvents {
     let triggeredEvents: { [key: string]: boolean } = {}
 
     //% block="プレイヤーと目標地点の距離をチェック"
-    export function checkPlayerLocation(radius: number, x: number, y: number, z: number) {
-        const targetPos = pos(x, y, z).toWorld()
-        const distance = Math.sqrt(
-            Math.pow(player.position().getValue(Axis.X) - targetPos.getValue(Axis.X), 2) +
-            Math.pow(player.position().getValue(Axis.Y) - targetPos.getValue(Axis.Y), 2) +
-            Math.pow(player.position().getValue(Axis.Z) - targetPos.getValue(Axis.Z), 2)
-        )
-        player.say(targetPos)
-
-        return distance <= radius
+    export function checkPlayerLocation(target: Block) {
+        const targetPos = blocks.testForBlock(target, randpos(pos(-2, -2, -2), pos(2, 2, 2)))
+        return targetPos
     }
 
     //% block="宝箱イベントを開始する"
@@ -25,9 +18,10 @@ namespace LocationEvents {
         const chestX = 10
         const chestY = 0
         const chestZ = 10
+        const target = CHEST
 
         // 宝箱を設置
-        blocks.place(CHEST, pos(chestX, chestY, chestZ))
+        blocks.place(target, pos(chestX, chestY, chestZ))
 
         // 宝箱の周りにヒントを表示
         player.say("宝箱を探せ！")
@@ -35,7 +29,7 @@ namespace LocationEvents {
 
         // 定期的に位置をチェック
         loops.forever(function () {
-            if (checkPlayerLocation(3, chestX, chestY, chestZ)) {
+            if (checkPlayerLocation(target)) {
                 if (!triggeredEvents["treasure"]) {
                     triggeredEvents["treasure"] = true
                     player.say("宝箱を発見！")
@@ -52,6 +46,7 @@ namespace LocationEvents {
         const goalX = 20
         const goalY = 0
         const goalZ = 20
+        const target = STONE
 
         // 迷路の壁を生成
         for (let i = 0; i < 5; i++) {
@@ -62,7 +57,7 @@ namespace LocationEvents {
 
         // 定期的に位置をチェック
         loops.forever(function () {
-            if (checkPlayerLocation(2, goalX, goalY, goalZ)) {
+            if (checkPlayerLocation(target)) {
                 if (!triggeredEvents["maze"]) {
                     triggeredEvents["maze"] = true
                     player.say("迷路クリア！")
@@ -77,15 +72,16 @@ namespace LocationEvents {
         const itemX = 30
         const itemY = 0
         const itemZ = 30
+        const target = EMERALD_BLOCK
 
         // 隠しアイテムを設置
-        blocks.place(EMERALD_BLOCK, pos(itemX, itemY, itemZ))
+        blocks.place(target, pos(itemX, itemY, itemZ))
 
         player.say("隠されたエメラルドを探せ！")
 
         // 定期的に位置をチェック
         loops.forever(function () {
-            if (checkPlayerLocation(2, itemX, itemY, itemZ)) {
+            if (checkPlayerLocation(target)) {
                 if (!triggeredEvents["hiddenItem"]) {
                     triggeredEvents["hiddenItem"] = true
                     player.say("エメラルドを発見！")
