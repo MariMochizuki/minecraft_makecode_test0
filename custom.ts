@@ -23,7 +23,7 @@ namespace LocationEvents {
             Math.pow(playerPos.getValue(Axis.Z) - targetPos.getValue(Axis.Y), 2)
         )
 
-        return distance
+        return distance <= radius
     }
 
     //% block="宝箱イベントを開始する"
